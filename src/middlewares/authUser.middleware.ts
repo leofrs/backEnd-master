@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import { LoginUser } from "../../@types/user";
 import { AuthenticatedRequest } from "../../@types/authUser";
 
-export const secretKey = "159";
+export const secretKey = process.env.SECRET_KEY;
 
 export const jwtMiddleware = (
     req: AuthenticatedRequest,
@@ -17,7 +17,7 @@ export const jwtMiddleware = (
     }
 
     try {
-        const verified = jwt.verify(token, secretKey) as LoginUser;
+        const verified = jwt.verify(token, secretKey!) as LoginUser;
         req.user = verified;
         next();
     } catch (error) {

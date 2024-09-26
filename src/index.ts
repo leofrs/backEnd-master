@@ -4,6 +4,9 @@ import swaggerUI from "swagger-ui-express";
 import { swaggerDocument } from "./swagger";
 import { taskRouter } from "./routes/task.router";
 import { userRouter } from "./routes/user.router";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT_DEV || 3000;

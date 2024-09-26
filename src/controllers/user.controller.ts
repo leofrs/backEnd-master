@@ -3,7 +3,6 @@ import { CreateUser, LoginUser } from "../../@types/user";
 import { UserPrisma } from "../services/prismaUser.service";
 import { comparePassword, hashPassword } from "../services/bcrypt.service";
 import jwt from "jsonwebtoken";
-import { secretKey } from "../middlewares/authUser.middleware";
 import { AuthenticatedRequest } from "../../@types/authUser";
 
 const userPrisma = new UserPrisma();
@@ -78,7 +77,9 @@ export class UserController {
                 });
             }
 
-            const token = jwt.sign({ email }, secretKey, { expiresIn: "1h" });
+            const token = jwt.sign({ email }, process.env.SECRET_KEY!, {
+                expiresIn: "1h",
+            });
 
             return res.status(200).json({ token: token });
         } catch (error) {
