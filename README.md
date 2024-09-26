@@ -1,6 +1,7 @@
 # Back-End: Master
 
-![Tela principal](/public/assets/swagger.png)
+![Tela principal](/public/assets/docs.png)
+![Tela Swagger](/public/assets/swagger.png)
 
 ## Descrição
 
