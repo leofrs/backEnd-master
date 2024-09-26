@@ -2,6 +2,9 @@ import { Request, Response } from "express";
 import { CreateUser, LoginUser } from "../../@types/user";
 import { UserPrisma } from "../services/prismaUser.service";
 import { comparePassword, hashPassword } from "../services/bcrypt.service";
+import jwt from "jsonwebtoken";
+import { secretKey } from "../middlewares/authUser.middleware";
+import { AuthenticatedRequest } from "../../@types/authUser";
 
 const userPrisma = new UserPrisma();
 
@@ -49,7 +52,7 @@ export class UserController {
         }
     }
 
-    async login(req: Request, res: Response) {
+    async login(req: AuthenticatedRequest, res: Response) {
         const { email, password } = req.body as LoginUser;
         if (!email || !password) {
             return res.status(400).json({
@@ -74,9 +77,10 @@ export class UserController {
                     error: "Senha inválida.",
                 });
             }
-            return res.status(200).json({
-                message: "Login realizado com sucesso.",
-            });
+
+            const token = jwt.sign({ email }, secretKey, { expiresIn: "1h" });
+
+            return res.status(200).json({ token: token });
         } catch (error) {
             console.error("Erro interno:", error);
             return res.status(500).json({

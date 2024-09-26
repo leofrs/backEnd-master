@@ -66,7 +66,7 @@ userRouter.post("/api/v1/register", userController.register);
  *                 type: string
  *                 description: Senha que o usuário cadastrou no DB(essa senha está criptografada no banco de dados).
  *       200:
- *         description: Login realizado com sucesso.
+ *         description: Retorna o JWT criado.
  *       400:
  *         description: Email e senha não passados.
  *       401:

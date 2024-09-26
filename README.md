@@ -27,7 +27,8 @@ Este projeto vai ser utilizado como o "servidor principal" para todas as minhas 
 -   **Organização de pastas:**
 -   **@types:** Contém todas as tipagens necessárias para as várias partes da aplicação;
 -   **prisma:** Contém o modelo para cada tabela e seus respectivos dados. Também contém todas as migrations que são realizadas para o banco de dados;
--   **src:** Aqui vão estar as pastas: controllers, middlewares, routes, services. Também vai ter o arquivo index.ts(responsável por iniciar o servidor) e o swagger.ts(responsável por criar a estrutura da página de documentação)
+-   **Public:** Contém as imagens do projeto dentro da pasta assets;
+-   **src:** Aqui vão estar as pastas: controllers, middlewares, routes, services. Também vai ter o arquivo index.ts(responsável por iniciar o servidor) e o swagger.ts(responsável por criar a estrutura da página de documentação).
 
 -   **Endpoints:**
 -   **sawgger:** /api-docs

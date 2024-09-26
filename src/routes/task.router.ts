@@ -1,22 +1,9 @@
 import { Router } from "express";
 import { TaskController } from "../controllers/task.controller";
+import { jwtMiddleware } from "../middlewares/authUser.middleware";
 
 export const taskRouter = Router();
 const taskController = new TaskController();
-
-/**
- * @swagger
- * /api/v1/get-tasks-by-user:
- *   get:
- *     summary: Encontra as tarefas
- *     description: Faz a busca de todas as tarefas abertas
- *     responses:
- *       201:
- *         description: Sucesso! Tarefa(s) encontrada(s).
- *       500:
- *         description: Erro ao buscar a(s) tarefa(s).
- */
-taskRouter.get("/api/v1/get-tasks-by-user");
 
 /**
  * @swagger
@@ -24,6 +11,8 @@ taskRouter.get("/api/v1/get-tasks-by-user");
  *   post:
  *     summary: Cria uma nova tarefa.
  *     description: Cria uma nova tarefa de acordo com o usuário logado no momento.
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -40,10 +29,10 @@ taskRouter.get("/api/v1/get-tasks-by-user");
  *                 description: Titulo da tarefa criada.
  *               description:
  *                 type: string
- *                 description: Descrição da tarefa criada (essa propriedade não é obrigatoria).
- *               authorID:
+ *                 description: Descrição da tarefa criada (essa propriedade não é obrigatória).
+ *               authorId:
  *                 type: number
- *                 description: Id do author para associa-lo a tarefa criada
+ *                 description: Id do author para associá-lo à tarefa criada.
  *     responses:
  *       201:
  *         description: Tarefa criada com sucesso.
@@ -54,4 +43,4 @@ taskRouter.get("/api/v1/get-tasks-by-user");
  *       501:
  *         description: Erro interno detectado.
  */
-taskRouter.post("/api/v1/create-task", taskController.create);
+taskRouter.post("/api/v1/create-task", jwtMiddleware, taskController.create);
