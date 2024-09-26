@@ -31,7 +31,7 @@ export class TaskController {
             }
         } catch (error) {
             console.error("Erro interno:", error);
-            return res.status(500).json({
+            return res.status(501).json({
                 error: "Erro interno detectado.",
                 details: error || "Erro desconhecido.",
             });
