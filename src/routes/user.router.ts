@@ -6,10 +6,18 @@ const userController = new UserController();
 
 /**
  * @swagger
+ * tags:
+ *   - name: User
+ *     description: Gerenciar usuários
+ */
+
+/**
+ * @swagger
  * /api/v1/register-user:
  *    post:
  *     summary: Cria um usuário.
  *     description: Cria uma novo usuário no banco de dados.
+ *     tags: [User]
  *     requestBody:
  *       required: true
  *       content:
@@ -49,6 +57,7 @@ userRouter.post("/api/v1/register", userController.register);
  *    post:
  *     summary: Login do usuário.
  *     description: Vai ao banco de dados e faz a busca pelo email, mais a comparação entre senhas para validar o login
+ *     tags: [User]
  *     requestBody:
  *       required: true
  *       content:

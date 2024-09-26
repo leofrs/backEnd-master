@@ -7,13 +7,22 @@ export const swaggerDocument = swaggerJsdoc({
             title: "API Master",
             version: "1.0.0",
             description:
-                "Essa API suportar vários projetos desenvolvidos com várias funcionalidades por causa do banco de dados aceitar apenas um servidor",
+                "Essa API tem o intuito de ser uma central para projetos desenvolvidos em modo de teste. Ela vai conter vários recursos para diferentes aplicações",
         },
         servers: [
             {
                 url: "http://localhost:3000",
             },
         ],
+        components: {
+            securitySchemes: {
+                bearerAuth: {
+                    type: "http",
+                    scheme: "bearer",
+                    bearerFormat: "JWT",
+                },
+            },
+        },
     },
     apis: ["./src/routes/*.ts"],
 });

@@ -7,12 +7,21 @@ const taskController = new TaskController();
 
 /**
  * @swagger
+ * tags:
+ *   - name: Tasks
+ *     description: Gerenciar Tasks
+ */
+
+/**
+ * @swagger
  * /api/v1/create-task:
  *   post:
  *     summary: Cria uma nova tarefa.
- *     description: Cria uma nova tarefa de acordo com o usuário logado no momento.
+ *     description: Cria uma nova tarefa de acordo com o usuário logado no momento. Essa rota precisa do JWT para ser acessada
+ *     tags: [Tasks]
  *     security:
  *       - bearerAuth: []
+ *         summary: Obter dados protegidos
  *     requestBody:
  *       required: true
  *       content:
