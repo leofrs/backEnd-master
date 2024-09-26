@@ -6,7 +6,7 @@ const taskController = new TaskController();
 
 /**
  * @swagger
- * /api/v1/gat-all-tasks:
+ * /api/v1/get-tasks-by-user:
  *   get:
  *     summary: Encontra as tarefas
  *     description: Faz a busca de todas as tarefas abertas
@@ -16,7 +16,7 @@ const taskController = new TaskController();
  *       500:
  *         description: Erro ao buscar a(s) tarefa(s).
  */
-taskRouter.get("/api/v1/gat-all-tasks");
+taskRouter.get("/api/v1/get-tasks-by-user");
 
 /**
  * @swagger

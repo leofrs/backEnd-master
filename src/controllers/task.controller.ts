@@ -14,7 +14,7 @@ export class TaskController {
         }
 
         try {
-            const newTask = await taskPrisma.create_by_id({
+            const newTask = await taskPrisma.createById({
                 title,
                 description,
                 authorId,

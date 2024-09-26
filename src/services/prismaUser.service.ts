@@ -4,7 +4,7 @@ import { CreateUser } from "../../@types/user";
 const prismaUser = new PrismaClient();
 
 export class UserPrisma {
-    async create_user({ name, email, password }: CreateUser) {
+    async createUser({ name, email, password }: CreateUser) {
         try {
             const newUser = await prismaUser.user.create({
                 data: {
@@ -17,6 +17,22 @@ export class UserPrisma {
         } catch (error) {
             console.error("Erro ao criar o usuário:", error);
             throw new Error("Não foi possível criar o usuário");
+        } finally {
+            await prismaUser.$disconnect();
+        }
+    }
+
+    async findByEmail(email: string) {
+        try {
+            const findUser = await prismaUser.user.findUnique({
+                where: {
+                    email,
+                },
+            });
+            return findUser;
+        } catch (error) {
+            console.error("Erro ao encontrar o usuário:", error);
+            throw new Error("Não foi possível encontrar o usuário");
         } finally {
             await prismaUser.$disconnect();
         }
