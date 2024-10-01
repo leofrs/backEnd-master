@@ -4,17 +4,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
-const swagger_1 = require("./swagger");
 const task_router_1 = require("./routes/task.router");
 const user_router_1 = require("./routes/user.router");
 const dotenv_1 = __importDefault(require("dotenv"));
 const path_1 = __importDefault(require("path"));
+const swagger_route_1 = require("./routes/swagger.route");
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const PORT = process.env.PORT_DEV || 3000;
 app.use(express_1.default.json());
-app.use("/api-docs", swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swagger_1.swaggerDocument));
+app.use(swagger_route_1.swaggerRouter);
 app.use(user_router_1.userRouter);
 app.use(task_router_1.taskRouter);
 app.get("/", (req, res) => {

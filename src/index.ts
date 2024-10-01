@@ -1,11 +1,10 @@
 import express from "express";
 
-import swaggerUI from "swagger-ui-express";
-import { swaggerDocument } from "./swagger";
 import { taskRouter } from "./routes/task.router";
 import { userRouter } from "./routes/user.router";
 import dotenv from "dotenv";
 import path from "path";
+import { swaggerRouter } from "./routes/swagger.route";
 
 dotenv.config();
 
@@ -14,7 +13,7 @@ const PORT = process.env.PORT_DEV || 3000;
 
 app.use(express.json());
 
-app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+app.use(swaggerRouter);
 
 app.use(userRouter);
 app.use(taskRouter);
