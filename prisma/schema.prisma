@@ -12,14 +12,14 @@ model User {
   email String  @unique
   name  String
   password String
-  task Task[]
 }
 
 model Task {
   id        Int     @id @default(autoincrement())
   title     String
   description   String?
-  completed Boolean
-  author    User    @relation(fields: [authorId], references: [id])
-  authorId  Int
+  aFazer Boolean
+  fazendo Boolean
+  feito Boolean
+  date String
 }

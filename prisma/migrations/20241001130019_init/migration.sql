@@ -13,14 +13,13 @@ CREATE TABLE "Task" (
     "id" SERIAL NOT NULL,
     "title" TEXT NOT NULL,
     "description" TEXT,
-    "completed" BOOLEAN NOT NULL,
-    "authorId" INTEGER NOT NULL,
+    "aFazer" BOOLEAN NOT NULL,
+    "fazendo" BOOLEAN NOT NULL,
+    "feito" BOOLEAN NOT NULL,
+    "date" TEXT NOT NULL,
 
     CONSTRAINT "Task_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
-
--- AddForeignKey
-ALTER TABLE "Task" ADD CONSTRAINT "Task_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

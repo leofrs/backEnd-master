@@ -5,19 +5,22 @@ const taskPrisma = new TaskPrisma();
 
 export class TaskController {
     async create(req: Request, res: Response) {
-        const { title, description, authorId } = req.body as CreateTask;
+        const { title, description, date } = req.body as CreateTask;
 
-        if (!title || !authorId) {
+        if (!title && !date) {
             return res.status(400).json({
-                error: "Título e authorId são obrigatórios.",
+                error: "Título e data são obrigatórios.",
             });
         }
 
         try {
-            const newTask = await taskPrisma.createById({
+            const newTask = await taskPrisma.createTask({
                 title,
                 description,
-                authorId,
+                aFazer: true,
+                fazendo: false,
+                feito: false,
+                date,
             });
 
             if (newTask) {

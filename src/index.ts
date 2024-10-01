@@ -27,3 +27,5 @@ app.listen(PORT, () => {
     console.log(`Servidor rodando na porta: http://localhost:${PORT}`);
     console.log(`Documentação na porta: http://localhost:${PORT}/api-docs`);
 });
+
+export default app;

@@ -4,16 +4,23 @@ import { CreateTask } from "../../@types/task";
 const prismaTask = new PrismaClient();
 
 export class TaskPrisma {
-    async createById({ title, description, authorId }: CreateTask) {
+    async createTask({
+        title,
+        description,
+        aFazer,
+        fazendo,
+        feito,
+        date,
+    }: CreateTask) {
         try {
             const newTask = await prismaTask.task.create({
                 data: {
                     title,
                     description,
-                    completed: false,
-                    author: {
-                        connect: { id: authorId },
-                    },
+                    aFazer,
+                    fazendo,
+                    feito,
+                    date,
                 },
             });
             return newTask;

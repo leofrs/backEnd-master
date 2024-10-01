@@ -1,5 +1,8 @@
 export interface CreateTask {
     title: string;
     description?: string;
-    authorId: number;
+    aFazer: boolean;
+    fazendo: boolean;
+    feito: boolean;
+    date: string;
 }
