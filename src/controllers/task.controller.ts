@@ -44,8 +44,10 @@ export class TaskController {
     async getTasks(req: Request, res: Response) {
         try {
             const tasks = await taskPrisma.getTasks();
-            if (tasks) {
+            if (tasks && tasks.length > 0) {
                 res.status(200).json(tasks);
+            } else {
+                res.status(200).json([]);
             }
         } catch (error) {
             console.error("Erro interno:", error);
