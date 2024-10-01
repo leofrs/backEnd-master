@@ -6,10 +6,14 @@ import dotenv from "dotenv";
 import path from "path";
 import { swaggerRouter } from "./routes/swagger.route";
 
+import cors from "cors";
+
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT_DEV || 3000;
+
+app.use(cors());
 
 app.use(express.json());
 
