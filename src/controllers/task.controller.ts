@@ -40,4 +40,19 @@ export class TaskController {
             });
         }
     }
+
+    async getTasks(req: Request, res: Response) {
+        try {
+            const tasks = await taskPrisma.getTasks();
+            if (tasks) {
+                res.status(200).json(tasks);
+            }
+        } catch (error) {
+            console.error("Erro interno:", error);
+            return res.status(501).json({
+                error: "Erro interno detectado.",
+                details: error || "Erro desconhecido.",
+            });
+        }
+    }
 }

@@ -1,6 +1,5 @@
 import { Router } from "express";
 import { TaskController } from "../controllers/task.controller";
-import { jwtMiddleware } from "../middlewares/authUser.middleware";
 
 export const taskRouter = Router();
 const taskController = new TaskController();
@@ -52,4 +51,6 @@ const taskController = new TaskController();
  *       501:
  *         description: Erro interno detectado.
  */
-taskRouter.post("/api/v1/create-task", jwtMiddleware, taskController.create);
+taskRouter.post("/api/v1/create-task", taskController.create);
+
+taskRouter.get("/api/v1/get-tasks", taskController.getTasks);

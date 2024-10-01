@@ -31,4 +31,16 @@ export class TaskPrisma {
             await prismaTask.$disconnect();
         }
     }
+
+    async getTasks() {
+        try {
+            const get = await prismaTask.task.findMany();
+            return get;
+        } catch (error) {
+            console.error("Erro ao buscar as tarefas:", error);
+            throw new Error("Não foi possível buscar as tarefas");
+        } finally {
+            await prismaTask.$disconnect();
+        }
+    }
 }
