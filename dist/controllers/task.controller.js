@@ -54,8 +54,11 @@ class TaskController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const tasks = yield taskPrisma.getTasks();
-                if (tasks) {
+                if (tasks && tasks.length > 0) {
                     res.status(200).json(tasks);
+                }
+                else {
+                    res.status(200).json([]);
                 }
             }
             catch (error) {
