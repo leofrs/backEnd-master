@@ -70,5 +70,39 @@ class TaskController {
             }
         });
     }
+    editTask(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { title, description, aFazer, fazendo, feito } = req.body;
+            const taskId = req.params.id;
+            const taskIdNumber = Number(taskId);
+            if (!title || isNaN(taskIdNumber)) {
+                return res.status(400).json({
+                    error: "Título e Id da tarefa são obrigatórios.",
+                });
+            }
+            try {
+                const newtTaskEdit = yield taskPrisma.editTask(taskIdNumber, {
+                    title,
+                    description,
+                    aFazer,
+                    fazendo,
+                    feito,
+                });
+                if (newtTaskEdit) {
+                    res.status(201).json("Tarefa editada com sucesso");
+                }
+                else {
+                    res.status(301).json("Erro ao editar tarefa!");
+                }
+            }
+            catch (error) {
+                console.error("Erro interno:", error);
+                return res.status(501).json({
+                    error: "Erro interno detectado.",
+                    details: error || "Erro desconhecido.",
+                });
+            }
+        });
+    }
 }
 exports.TaskController = TaskController;

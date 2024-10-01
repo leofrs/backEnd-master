@@ -54,3 +54,5 @@ const taskController = new TaskController();
 taskRouter.post("/api/v1/create-task", taskController.create);
 
 taskRouter.get("/api/v1/get-tasks", taskController.getTasks);
+
+taskRouter.put("/api/v1/updated-task/:id", taskController.editTask);

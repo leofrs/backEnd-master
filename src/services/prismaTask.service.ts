@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { CreateTask } from "../../@types/task";
+import { Task, EditTask } from "../../@types/task";
 
 const prismaTask = new PrismaClient();
 
@@ -11,7 +11,7 @@ export class TaskPrisma {
         fazendo,
         feito,
         date,
-    }: CreateTask) {
+    }: Task) {
         try {
             const newTask = await prismaTask.task.create({
                 data: {
@@ -39,6 +39,32 @@ export class TaskPrisma {
         } catch (error) {
             console.error("Erro ao buscar as tarefas:", error);
             throw new Error("Não foi possível buscar as tarefas");
+        } finally {
+            await prismaTask.$disconnect();
+        }
+    }
+
+    async editTask(
+        id: number,
+        { title, description, aFazer, fazendo, feito }: EditTask
+    ) {
+        try {
+            const newTaskEdit = await prismaTask.task.update({
+                where: {
+                    id,
+                },
+                data: {
+                    title,
+                    description,
+                    aFazer,
+                    fazendo,
+                    feito,
+                },
+            });
+            return newTaskEdit;
+        } catch (error) {
+            console.error("Erro ao editar a tarefa:", error);
+            throw new Error("Não foi possível editar a tarefa");
         } finally {
             await prismaTask.$disconnect();
         }

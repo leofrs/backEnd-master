@@ -52,5 +52,31 @@ class TaskPrisma {
             }
         });
     }
+    editTask(id_1, _a) {
+        return __awaiter(this, arguments, void 0, function* (id, { title, description, aFazer, fazendo, feito }) {
+            try {
+                const newTaskEdit = yield prismaTask.task.update({
+                    where: {
+                        id,
+                    },
+                    data: {
+                        title,
+                        description,
+                        aFazer,
+                        fazendo,
+                        feito,
+                    },
+                });
+                return newTaskEdit;
+            }
+            catch (error) {
+                console.error("Erro ao editar a tarefa:", error);
+                throw new Error("Não foi possível editar a tarefa");
+            }
+            finally {
+                yield prismaTask.$disconnect();
+            }
+        });
+    }
 }
 exports.TaskPrisma = TaskPrisma;
