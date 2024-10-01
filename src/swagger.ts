@@ -11,7 +11,7 @@ export const swaggerDocument = swaggerJsdoc({
         },
         servers: [
             {
-                url: "http://localhost:3000",
+                url: "https://back-end-master.vercel.app/",
             },
         ],
         components: {
