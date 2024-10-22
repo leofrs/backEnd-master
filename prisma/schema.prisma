@@ -12,6 +12,11 @@ model User {
   email String  @unique
   name  String
   password String
+  confirmPassword String
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+  lessonPlans LessonPlan[]
+  stripe_customer_id String?
 }
 
 model Task {
@@ -22,4 +27,28 @@ model Task {
   fazendo Boolean
   feito Boolean
   date String
+}
+
+model LessonPlan {
+  id Int @id @default(autoincrement())
+  title String
+  duration Int
+  subject String
+  sections Section[]
+  createAt DateTime @default(now())
+  userId Int
+  user User @relation(fields: [userId], references: [id])
+  topic String
+  subtopic String
+  objective String
+  studentLevel String
+}
+
+model Section {
+  id Int @id @default(autoincrement())
+  title String
+  content String
+  lessonPlanId Int
+  lessonPlan LessonPlan @relation(fields: [lessonPlanId], references: [id])
+  duration Int
 }
