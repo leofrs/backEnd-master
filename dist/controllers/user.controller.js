@@ -20,10 +20,10 @@ const userPrisma = new prismaUser_service_1.UserPrisma();
 class UserController {
     register(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { name, email, password } = req.body;
-            if (!name || !email || !password) {
+            const { name, email, password, confirmPassword } = req.body;
+            if (!name || !email || !password || !confirmPassword) {
                 return res.status(400).json({
-                    error: "Nome, email e senha são obrigatórios.",
+                    error: "Um dos seguintes campos está faltando ser preenchido: nome, email, password ou confirmPassword",
                 });
             }
             const existingUser = yield userPrisma.findByEmail(email);
@@ -33,30 +33,18 @@ class UserController {
                 });
             }
             const cryptPassword = yield (0, bcrypt_service_1.hashPassword)(password);
-            try {
-                const newUser = yield userPrisma.createUser({
-                    name,
-                    email,
-                    password: cryptPassword,
-                });
-                if (newUser) {
-                    return res.status(201).json({
-                        message: "Usuário criado com sucesso",
-                    });
-                }
-                else {
-                    return res.status(500).json({
-                        error: "Erro ao criar o usuário.",
-                    });
-                }
-            }
-            catch (error) {
-                console.error("Erro interno:", error);
-                return res.status(501).json({
-                    error: "Erro interno detectado.",
-                    details: error || "Erro desconhecido.",
-                });
-            }
+            const cryptConfirmPassword = yield (0, bcrypt_service_1.hashPassword)(confirmPassword);
+            yield userPrisma
+                .createUser({
+                name,
+                email,
+                password: cryptPassword,
+                confirmPassword: cryptConfirmPassword,
+            })
+                .then(() => res.status(201).json({ message: "Usuário criado com sucesso" }))
+                .catch((err) => res.status(500).json({
+                error: `Erro ao criar o usuário! ${err}`,
+            }));
         });
     }
     login(req, res) {
@@ -67,31 +55,37 @@ class UserController {
                     error: "Email e senha não passados.",
                 });
             }
-            try {
-                const user = yield userPrisma.findByEmail(email);
+            userPrisma
+                .findByEmail(email)
+                .then((user) => {
                 if (!user) {
-                    return res.status(401).json({
+                    res.status(401).json({
                         error: "Usuário não cadastrado/encontrado",
                     });
+                    return Promise.reject();
                 }
-                const isPasswordValid = yield (0, bcrypt_service_1.comparePassword)(password, user.password);
+                return (0, bcrypt_service_1.comparePassword)(password, user.password);
+            })
+                .then((isPasswordValid) => {
                 if (!isPasswordValid) {
-                    return res.status(409).json({
+                    res.status(409).json({
                         error: "Senha inválida.",
                     });
+                    return Promise.reject();
                 }
                 const token = jsonwebtoken_1.default.sign({ email }, process.env.SECRET_KEY, {
                     expiresIn: "1h",
                 });
-                return res.status(200).json({ token: token });
-            }
-            catch (error) {
-                console.error("Erro interno:", error);
-                return res.status(500).json({
-                    error: "Erro interno detectado.",
-                    details: error || "Erro desconhecido.",
-                });
-            }
+                res.status(200).json({ token: token });
+            })
+                .catch((err) => {
+                if (err) {
+                    console.error(err);
+                    res.status(500).json({
+                        error: "Erro no processamento.",
+                    });
+                }
+            });
         });
     }
 }

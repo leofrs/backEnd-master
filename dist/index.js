@@ -10,6 +10,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const path_1 = __importDefault(require("path"));
 const swagger_route_1 = require("./routes/swagger.route");
 const cors_1 = __importDefault(require("cors"));
+const lessonPlaner_1 = require("./routes/lessonPlaner");
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const PORT = process.env.PORT_DEV || 3000;
@@ -18,6 +19,7 @@ app.use(express_1.default.json());
 app.use(swagger_route_1.swaggerRouter);
 app.use(user_router_1.userRouter);
 app.use(task_router_1.taskRouter);
+app.use(lessonPlaner_1.lessonPlanerRouter);
 app.get("/", (req, res) => {
     res.sendFile(path_1.default.join(__dirname, "../index.html"));
 });

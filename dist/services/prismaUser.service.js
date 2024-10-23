@@ -14,13 +14,14 @@ const client_1 = require("@prisma/client");
 const prismaUser = new client_1.PrismaClient();
 class UserPrisma {
     createUser(_a) {
-        return __awaiter(this, arguments, void 0, function* ({ name, email, password }) {
+        return __awaiter(this, arguments, void 0, function* ({ name, email, password, confirmPassword }) {
             try {
                 const newUser = yield prismaUser.user.create({
                     data: {
                         name,
                         email,
                         password,
+                        confirmPassword,
                     },
                 });
                 return newUser;
@@ -43,10 +44,6 @@ class UserPrisma {
                     },
                 });
                 return findUser;
-            }
-            catch (error) {
-                console.error("Erro ao encontrar o usuário:", error);
-                throw new Error("Não foi possível encontrar o usuário");
             }
             finally {
                 yield prismaUser.$disconnect();

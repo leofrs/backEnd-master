@@ -14,7 +14,7 @@ const client_1 = require("@prisma/client");
 const prismaTask = new client_1.PrismaClient();
 class TaskPrisma {
     createTask(_a) {
-        return __awaiter(this, arguments, void 0, function* ({ title, description, aFazer, fazendo, feito, date, }) {
+        return __awaiter(this, arguments, void 0, function* ({ title, description, aFazer, fazendo, feito, date }) {
             try {
                 const newTask = yield prismaTask.task.create({
                     data: {
