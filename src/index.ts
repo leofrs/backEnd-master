@@ -7,6 +7,7 @@ import path from "path";
 import { swaggerRouter } from "./routes/swagger.route";
 
 import cors from "cors";
+import { lessonPlanerRouter } from "./routes/lessonPlaner";
 
 dotenv.config();
 
@@ -21,14 +22,15 @@ app.use(swaggerRouter);
 
 app.use(userRouter);
 app.use(taskRouter);
+app.use(lessonPlanerRouter);
 
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "../index.html"));
+  res.sendFile(path.join(__dirname, "../index.html"));
 });
 
 app.listen(PORT, () => {
-    console.log(`Servidor rodando na porta: http://localhost:${PORT}`);
-    console.log(`Documentação na porta: http://localhost:${PORT}/api-docs`);
+  console.log(`Servidor rodando na porta: http://localhost:${PORT}`);
+  console.log(`Documentação na porta: http://localhost:${PORT}/api-docs`);
 });
 
 export default app;

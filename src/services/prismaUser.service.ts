@@ -31,9 +31,6 @@ export class UserPrisma {
         },
       });
       return findUser;
-    } catch (error) {
-      console.error("Erro ao encontrar o usuário:", error);
-      throw new Error("Não foi possível encontrar o usuário");
     } finally {
       await prismaUser.$disconnect();
     }
