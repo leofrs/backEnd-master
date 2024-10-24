@@ -55,7 +55,7 @@ class LessonPlaner {
                     return;
                 }
                 const responseOpenAi = yield openAi_1.openAiClient.beta.chat.completions.parse({
-                    model: "gpt-3.5-turbo-0125",
+                    model: "gpt-4o-2024-08-06",
                     messages: [
                         {
                             role: "system",

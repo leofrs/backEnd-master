@@ -60,7 +60,7 @@ export class LessonPlaner {
       }
 
       const responseOpenAi = await openAiClient.beta.chat.completions.parse({
-        model: "gpt-3.5-turbo-0125",
+        model: "gpt-4o-2024-08-06",
         messages: [
           {
             role: "system",
